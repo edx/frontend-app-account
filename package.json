@@ -27,6 +27,7 @@
     "extends @edx/browserslist-config"
   ],
   "dependencies": {
+    "@datadog/browser-logs": "^5.15.0",
     "@datadog/browser-rum": "^5.14.0",
     "@edx/brand": "npm:@openedx/brand-openedx@^1.2.2",
     "@edx/frontend-component-footer": "13.0.5",
