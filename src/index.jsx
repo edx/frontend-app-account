@@ -14,6 +14,7 @@ import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
 
 import { datadogRum } from '@datadog/browser-rum';
+import { datadogLogs } from '@datadog/browser-logs';
 
 import configureStore from './data/configureStore';
 import AccountSettingsPage, { NotFoundPage } from './account-settings';
@@ -41,6 +42,19 @@ subscribe(APP_READY, () => {
     trackLongTasks: true,
     defaultPrivacyLevel: 'mask-user-input',
   });
+  datadogLogs.init({
+    clientToken: 'pubf2e79d946cec4c4413965620ba0e0b72',
+    site: 'datadoghq.com',
+    forwardErrorsToLogs: true,
+    sessionSampleRate: 100,
+    service: 'edx_sandbox_testing',
+  });
+
+  try {
+    throw new Error('hello world');
+  } catch (ex) {
+    datadogLogs.logger.error('Error occurred', {}, ex);
+  }
   ReactDOM.render(
     <AppProvider store={configureStore()}>
       <Head />
