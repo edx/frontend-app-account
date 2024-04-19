@@ -48,15 +48,12 @@ subscribe(APP_READY, () => {
     forwardErrorsToLogs: true,
     sessionSampleRate: 100,
     service: 'edx_sandbox_testing',
-    // env: 'staging',
   });
 
   try {
     throw new Error('hello world');
   } catch (ex) {
-    console.error(ex);
-    // datadogLogs.logger.error('Error occurred', {}, ex);
-    datadogLogs.logger.error('hello world');
+    datadogLogs.logger.error('Error occurred', {}, ex);
   }
   ReactDOM.render(
     <AppProvider store={configureStore()}>

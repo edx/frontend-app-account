@@ -17,7 +17,6 @@ import {
   Button, Hyperlink, Icon, Alert,
 } from '@openedx/paragon';
 import { CheckCircle, Error, WarningFilled } from '@openedx/paragon/icons';
-// import { datadogLogs } from '@datadog/browser-logs';
 
 import messages from './AccountSettingsPage.messages';
 import {
@@ -835,14 +834,6 @@ class AccountSettingsPage extends React.Component {
       loaded,
       loadingError,
     } = this.props;
-
-    // try {
-    //   throw new Error('hello world');
-    // } catch (ex) {
-    //   console.error(ex);
-    //   // datadogLogs.logger.error('Error occurred', {}, ex);
-    //   datadogLogs.logger.error('helllo world!!!!');
-    // }
 
     return (
       <div className="page__account-settings container-fluid py-5">
