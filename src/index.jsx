@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import { Route, Routes, Outlet } from 'react-router-dom';
 
 import Header from '@edx/frontend-component-header';
-import Footer from '@edx/frontend-component-footer';
+import { FooterSlot } from '@edx/frontend-component-footer';
 
 import configureStore from './data/configureStore';
 import AccountSettingsPage, { NotFoundPage } from './account-settings';
@@ -34,7 +34,7 @@ subscribe(APP_READY, () => {
             <main className="flex-grow-1" id="main">
               <Outlet />
             </main>
-            <Footer />
+            <FooterSlot />
           </div>
         )}
         >
@@ -65,6 +65,7 @@ initialize({
         SUPPORT_URL: process.env.SUPPORT_URL,
         ENABLE_DEMOGRAPHICS_COLLECTION: (process.env.ENABLE_DEMOGRAPHICS_COLLECTION || false),
         DEMOGRAPHICS_BASE_URL: process.env.DEMOGRAPHICS_BASE_URL,
+        SHOW_EMAIL_CHANNEL: process.env.SHOW_EMAIL_CHANNEL || 'false',
         ENABLE_COPPA_COMPLIANCE: (process.env.ENABLE_COPPA_COMPLIANCE || false),
         ENABLE_ACCOUNT_DELETION: (process.env.ENABLE_ACCOUNT_DELETION !== 'false'),
         ENABLE_DOB_UPDATE: (process.env.ENABLE_DOB_UPDATE || false),

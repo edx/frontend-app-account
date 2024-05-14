@@ -1,16 +1,17 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useIntl } from '@edx/frontend-platform/i18n';
-import {
-  Icon, OverlayTrigger, Tooltip,
-} from '@openedx/paragon';
+
 import { InfoOutline } from '@openedx/paragon/icons';
+import { useIntl } from '@edx/frontend-platform/i18n';
+import { Icon, OverlayTrigger, Tooltip } from '@openedx/paragon';
+
 import messages from './messages';
-import { selectPreferencesOfApp } from './data/selectors';
 import { useIsOnMobile } from '../hooks';
-import NotificationPreferenceColumn from './NotificationPreferenceColumn';
 import { NOTIFICATION_CHANNELS } from './data/constants';
+import { selectPreferencesOfApp } from './data/selectors';
+import NotificationPreferenceColumn from './NotificationPreferenceColumn';
 
 const NotificationTypes = ({ appId }) => {
   const intl = useIntl();
@@ -21,6 +22,7 @@ const NotificationTypes = ({ appId }) => {
     <div className="d-flex flex-column mr-auto px-0">
       {!mobileView && <span className="mb-3 header-label">{intl.formatMessage(messages.typeLabel)}</span>}
       {preferences.map(preference => (
+        (preference?.coreNotificationTypes?.length > 0 || preference.id !== 'core') && (
         <>
           <div
             key={preference.id}
@@ -53,6 +55,8 @@ const NotificationTypes = ({ appId }) => {
           </div>
           )}
         </>
+        )
+
       ))}
     </div>
   );

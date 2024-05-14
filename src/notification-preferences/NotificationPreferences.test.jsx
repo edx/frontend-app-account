@@ -1,14 +1,16 @@
 /* eslint-disable no-import-assign */
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import {
-  fireEvent, render, screen, waitFor, act, within,
-} from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import * as auth from '@edx/frontend-platform/auth';
 import { IntlProvider } from '@edx/frontend-platform/i18n';
-import NotificationPreferences from './NotificationPreferences';
+import {
+  act, fireEvent, render, screen, waitFor, within,
+} from '@testing-library/react';
+
 import { defaultState } from './data/reducers';
+import NotificationPreferences from './NotificationPreferences';
 import { FAILURE_STATUS, LOADING_STATUS, SUCCESS_STATUS } from '../constants';
 
 const courseId = 'selected-course-id';
@@ -36,6 +38,7 @@ const defaultPreferences = {
       web: true,
       push: true,
       email: true,
+      coreNotificationTypes: ['new_comment'],
     },
     {
       id: 'newComment',
@@ -43,6 +46,7 @@ const defaultPreferences = {
       web: false,
       push: false,
       email: false,
+      coreNotificationTypes: [],
     },
     {
       id: 'newAssignment',
@@ -50,6 +54,7 @@ const defaultPreferences = {
       web: false,
       push: false,
       email: false,
+      coreNotificationTypes: [],
     },
     {
       id: 'newGrade',
@@ -57,6 +62,7 @@ const defaultPreferences = {
       web: false,
       push: false,
       email: false,
+      coreNotificationTypes: [],
     },
   ],
   nonEditable: {
@@ -70,9 +76,15 @@ const defaultPreferences = {
 
 const updateChannelPreferences = (toggleVal = false) => ({
   preferences: [
-    { id: 'core', appId: 'discussion', web: true },
-    { id: 'newComment', appId: 'discussion', web: toggleVal },
-    { id: 'newAssignment', appId: 'coursework', web: toggleVal },
+    {
+      id: 'core', appId: 'discussion', web: true, coreNotificationTypes: ['new_comment'],
+    },
+    {
+      id: 'newComment', appId: 'discussion', web: toggleVal, coreNotificationTypes: [],
+    },
+    {
+      id: 'newAssignment', appId: 'coursework', web: toggleVal, coreNotificationTypes: [],
+    },
   ],
 });
 
