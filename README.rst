@@ -4,6 +4,14 @@ frontend-app-account
 
 |ci-badge| |Codecov| |npm_version| |npm_downloads| |license| |semantic-release|
 
+************
+Archive Note
+************
+
+This was a temporary fork of frontend-app-account that 2U used to more quickly rollout
+some Datadog related changes before improving our capability to deploy frontend plugins.
+
+2U is now deploying the community version at https://github.com/openedx/frontend-app-account.
 
 ********
 Purpose
