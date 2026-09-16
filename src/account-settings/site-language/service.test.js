@@ -7,9 +7,9 @@ import { getSiteLanguageList, patchPreferences, postSetLang } from './service';
 jest.mock('@edx/frontend-platform');
 jest.mock('@edx/frontend-platform/auth');
 jest.mock('@edx/frontend-platform/utils');
-jest.mock('./constants', () => (['en', 'es', 'fr']));
 
 describe('preferencesApi', () => {
+  const mockGet = jest.fn();
   const mockPatch = jest.fn();
   const mockPost = jest.fn();
 
@@ -21,6 +21,7 @@ describe('preferencesApi', () => {
     });
 
     getAuthenticatedHttpClient.mockReturnValue({
+      get: mockGet,
       patch: mockPatch,
       post: mockPost,
     });
@@ -30,9 +31,24 @@ describe('preferencesApi', () => {
   });
 
   describe('getSiteLanguageList', () => {
-    it('returns the siteLanguageList constant', async () => {
+    it('fetches the released site languages from the LMS', async () => {
+      const languages = [
+        { code: 'en', name: 'English', released: true },
+        { code: 'es-419', name: 'Español (Latinoamérica)', released: true },
+        { code: 'lt-lt', name: 'Lietuvių (Lietuva)', released: false },
+      ];
+      mockGet.mockResolvedValueOnce({ data: languages });
+
       const result = await getSiteLanguageList();
-      expect(result).toEqual(['en', 'es', 'fr']);
+
+      expect(mockGet).toHaveBeenCalledWith('http://testserver/api/lang_pref/v1/released_languages');
+      expect(result).toEqual(languages);
+    });
+
+    it('propagates request errors so the saga can handle them', async () => {
+      mockGet.mockRejectedValueOnce(new Error('Network Error'));
+
+      await expect(getSiteLanguageList()).rejects.toThrow('Network Error');
     });
   });
 
