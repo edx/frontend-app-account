@@ -118,7 +118,7 @@ export class DeleteAccount extends React.Component {
               {isVerifiedAccount ? null : (
                 <BeforeProceedingBanner
                   instructionMessageId={optInInstructionMessageId}
-                  supportArticleUrl="https://support.edx.org/hc/en-us/articles/115000940568-How-do-I-confirm-my-email"
+                  supportArticleUrl="https://help.edx.org/edxlearner/s/article/How-do-I-confirm-my-email"
                 />
               )}
               {hasLinkedTPA ? (
